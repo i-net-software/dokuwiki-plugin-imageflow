@@ -1,0 +1,177 @@
+div.imageflow_root {
+	overflow: hidden !important;
+}
+
+div.imageflow_wrapper div.noscript, div.imageflow_wrapper div.noscript img {
+	display: none;
+	visiblity: hidden;
+	width: 0px;
+	height: 0px;
+}
+
+div.imageflow_wrapper.scripting_active {
+	background: __darker__;
+	border: 1px solid #000;
+	position: relative !important;
+}
+
+div.imageflow_wrapper {
+	margin-bottom: 30px;
+}
+
+*:first-child+html div.imageflow_wrapper, *:first-child+html div.imageflow_wrapper {
+	padding-bottom: 20px;
+}
+
+/* ******************************************************************************************
+	Images Container
+****************************************************************************************** */
+
+div.imageflow_images {
+	position: relative;
+	margin-bottom: 20px;
+}
+
+/* ******************************************************************************************
+	Scroller Container
+****************************************************************************************** */
+
+div.imageflow_no_scroller {
+	position: absolute;
+	height: 33%;
+	width: 100%;
+	z-index: 200;
+}
+
+div.imageflow_scrollbar {
+	display: none;
+	position:relative; 
+	background-image:url(images/sb.gif);
+	background-repeat:repeat-x;
+	height:16px;
+	padding-right: 52px;
+	padding-left: 52px;
+	overflow: visible;
+
+	z-index:201;
+	opacity:.75;
+}
+
+div.imageflow_slider {
+	position:absolute;
+	margin-left:0px;
+	z-index:202;
+	background-image:url(images/sc.gif);
+	background-repeat:no-repeat;
+	width:77px;
+	height:16px;
+	
+	cursor: e-resize;
+}
+
+div.imageflow_slider_cap_left {
+	position:absolute;
+	margin-left:-58px;
+	z-index:202;
+	background-image:url(images/sl.gif);
+	background-repeat:no-repeat;
+	width:25px;
+	height:16px;
+	cursor: normal;
+}
+
+div.imageflow_slider_cap_right {
+	position:absolute;
+	margin-right:-5px;
+	z-index:202;
+	background-image:url(images/sr.gif);
+	background-repeat:no-repeat;
+	width:25px;
+	height:16px;
+	right: 0px;
+	cursor: normal;
+}
+
+/* ******************************************************************************************
+	Loader Container
+****************************************************************************************** */
+div.imageflow_loadingbar_container {
+	position: absolute;
+	width: 200px;
+	height: 16px;
+	z-index: 100;
+	background: url(images/loader_bg.gif) no-repeat;
+	display: none;
+}
+
+div.imageflow_loader {
+	height: 16px;
+	width: 0%;
+	background: url(images/loader.gif) no-repeat;
+	position: absolute;
+}
+
+div.imageflow_loadingbar_container p{
+	text-align:center;
+	position: absolute;
+	margin: 0px !important;
+	padding: 0px !important;
+	color: #fff;
+	width: 200px;
+}
+
+/* ******************************************************************************************
+	Caption Container
+****************************************************************************************** */
+div.imageflow_caption {
+	overflow: hidden !important;
+	position: absolute; 
+	text-align:left;
+	color: #fff;
+	z-index: 200;
+	height: 16%;
+	margin-top: 10px;
+}
+
+div.imageflow_caption h3 {
+	font-weight:bold;
+	margin: 0px !important;
+	border-bottom: 1px solid __border__;
+	width: 100%;
+}
+
+div.imageflow_caption p {
+	width: 100%;
+	margin: 0px !important;
+	overflow: hidden !important;
+}
+
+div.imageflow_caption p.ellipsis {
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-icab-text-overflow: ellipsis;
+	-khtml-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+	
+	white-space: nowrap;
+}
+
+/* ******************************************************************************************
+	Images
+****************************************************************************************** */
+div.imageflow_wrapper div.imageflow_images img { 
+	position:absolute; 
+	top:0px;
+	border:none;
+	background: transparent;
+	color: #555;
+}
+
+div.imageflow_wrapper div.debug {
+	bottom:10px;
+	color:#FFFFFF;
+	font-size:smaller;
+	margin-left:10px;
+	position:relative;
+}
