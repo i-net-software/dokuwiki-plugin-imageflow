@@ -172,6 +172,8 @@
 			this.height = 0;
 			this.pc = 0;
 			
+			this.popupData = {};
+			
 			this.isImageOk = function() {
 				
 				var img = this.image.get(0);
@@ -226,10 +228,23 @@
 				return true;
 			};
 			
+			this.popupClick = function(itemNr, direction) {
+			
+				if ( !itemNr && !direction ) { return; }
+			
+				_self.addMoveElementToQueue(itemNr);
+				var imageElement = _self.checkedImages[itemNr];
+				_self.specialClick.call(imageElement.image, {target: imageElement.image});
+			
+				return true;
+			};
+
 			this.init = function(imgData) {
 				
 				this.imgData = imgData;
 				this.imgData.isImage = true;
+				this.popupData = this.imgData;
+				this.popupData.click = this.popupClick;
 				
 				this.image = $(new Image());
 				var src = this.imgData.src;
@@ -457,8 +472,7 @@
 		this.addMoveElementToQueue = function (whereToMove) {
 			if ( whereToMove < 0 ) { whereToMove = 0; } // Already the first
 			if ( whereToMove >= _self.checkedImages.length ) { whereToMove = _self.checkedImages.length-1; } // This is already the last
-	
-			_self.whereToMoveQueue.push(whereToMove);
+			if ( _self.whereToMoveQueue[_self.whereToMoveQueue.length -1] != whereToMove )_self.whereToMoveQueue.push(whereToMove);
 			_self.glideTo(whereToMove);
 	
 			return true;
@@ -618,40 +632,12 @@
 			if ( _self.mouseDownByDrag ) { return; }
 	
 			// If we have the popupviewer, lets do some action!
-			if ( typeof popupviewer == 'undefined' ) {
+			if ( !jQuery.popupviewer ) {
 				return;
 			}
 			
 			if ( (whereToMove = _self.getClickImage(e)) === false ) { return; }
-			
-			var viewer = new popupviewer();
-	
-			// Overwrite function
-			viewer.skipToImage = function(itemNr) {
-	
-				var didMoveTo = _self.handle(itemNr);
-				if ( didMoveTo === false ) { return; }
-				
-				var imageElement = _self.checkedImages[didMoveTo];
-	
-				imageElement.image.onclick = function(e) { _self.specialClick(e); };
-	
-				if (imageElement.image) {
-					imageElement.image.click();
-				}
-			};
-			
-			viewer.popupImageStack = _self.checkedImages;
-			var linkTo = _self.checkedImages[whereToMove].imgData.linkto || _self.checkedImages[whereToMove].imgData;
-			
-			viewer.init(e);
-			if ( linkTo.isImage === true ) {
-				viewer.displayContent(linkTo.src, true);
-			} else {
-				viewer.loadAndDisplayPage(linkTo.src, linkTo.width, linkTo.height, null, linkTo.params);
-	    		viewer.isImage = true;
-				viewer.page = _self.checkedImages[whereToMove].id;
-			}
+			jQuery.popupviewer().init(_self.checkedImages).clickHandler.call(_self.checkedImages[whereToMove], null, _self.checkedImages[whereToMove].imgData);
 		};
 		
 		this.elementClick = function(e) {
@@ -672,7 +658,7 @@
 
 			var whereToMove = 0;
 			$.grep(_self.checkedImages, function(elem, index){
-				if ( e.target == elem.image.get(0) ) {
+				if ( elem.image.first().is(e.target) ) {
 					whereToMove = index;
 					return false;
 				}
