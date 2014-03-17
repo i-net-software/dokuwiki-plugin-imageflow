@@ -242,9 +242,11 @@
 			this.init = function(imgData) {
 				
 				this.imgData = imgData;
-				this.imgData.isImage = true;
-				this.popupData = this.imgData;
-				this.popupData.click = this.popupClick;
+				this.popupData = imgData.popupData || {};
+				this.popupData.id = this.popupData.id || this.imgData.id;
+				this.popupData.call = this.popupData.call || this.imgData.call;
+				this.popupData.src = this.popupData.src || this.imgData.src;
+				this.popupData.isImage = this.popupData.isImage || this.imgData.isImage || false;
 				
 				this.image = $(new Image());
 				var src = this.imgData.src;
@@ -637,7 +639,9 @@
 			}
 			
 			if ( (whereToMove = _self.getClickImage(e)) === false ) { return; }
-			jQuery.popupviewer().init(_self.checkedImages).clickHandler.call(_self.checkedImages[whereToMove], null, _self.checkedImages[whereToMove].imgData);
+			
+			var whereToImage = _self.checkedImages[whereToMove];
+			jQuery.popupviewer().init(_self.checkedImages).presentViewerWithContent.call(whereToImage);
 		};
 		
 		this.elementClick = function(e) {

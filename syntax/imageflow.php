@@ -85,7 +85,7 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
                     unset($params['linkto']);
                 }
 
-                return array('image', array('src' => trim($src), 'params' => $params, 'desc' => trim($desc), 'w' => 200, 'title' => trim($title), 'linkto' => $linkto));
+                return array('image', array('src' => trim($src), 'params' => $params, 'desc' => trim($desc), 'w' => 200, 'title' => trim($title), 'linkto' => $linkto, 'isIamge' => true));
                 break;
             case DOKU_LEXER_UNMATCHED:
                 break;
@@ -134,6 +134,7 @@ OUTPUT;
                         if ( empty($width)) $width = 300;
                         $imgData['params'] = array('w' => intval($width));
                         $imgData['id'] = sectionID(noNS($item['id']), $renderer->headers);
+                        $imgData['isImage'] = true;
 
                         $this->_image($imgData, $renderer, $mode);
                     }
