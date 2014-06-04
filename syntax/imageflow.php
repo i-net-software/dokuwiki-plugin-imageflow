@@ -22,6 +22,7 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
     var $namespace = null;
     var $reflection_conf = false;
     var $sectionID = array();
+    var $header = array();
 
     function getType(){ return 'protected';}
     function getAllowedTypes() { return array('container','substition','protected','disabled','formatting','paragraphs'); }
@@ -110,7 +111,7 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
                 	
                 case 'imageflow__start' :
                     	
-                    $this->sectionID[] = sectionID("imageflow_container_", $renderer->headers);
+                    $this->sectionID[] = sectionID("imageflow_container_", $this->header);
                     $scID = $this->sectionID[sizeof($this->sectionID)-1];
                     	
                     if ($mode == 'xhtml') $renderer->doc .= <<<OUTPUT
@@ -133,7 +134,7 @@ OUTPUT;
 
                         if ( empty($width)) $width = 300;
                         $imgData['params'] = array('w' => intval($width));
-                        $imgData['id'] = sectionID(noNS($item['id']), $renderer->headers);
+                        $imgData['id'] = sectionID(noNS($item['id']), $this->header);
                         $imgData['isImage'] = true;
 
                         $this->_image($imgData, $renderer, $mode);
