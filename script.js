@@ -336,7 +336,7 @@
 				imageElement.image.bind('mousedown', _self.dragStart);
 			}
 	
-			if ( img <= 1 ) {
+			if ( img < 1 ) {
 				this.loadingbartext.text('Ups. There are no Images.');
 				this.loadingbartext.css('color', "#a00");
 				
