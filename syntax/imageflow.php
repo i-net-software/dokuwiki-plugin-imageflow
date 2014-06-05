@@ -108,6 +108,10 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
 
         if( $mode == 'xhtml' || $mode == 'metadata' ) {
         
+            if ( !is_array($this->header[$mode]) ) {
+                $this->header[$mode] = array();
+            }
+        
             switch ( $instr ) {
                 	
                 case 'imageflow__start' :
@@ -147,6 +151,7 @@ OUTPUT;
                     $this->_image($data, $renderer, $mode);
                     break;
                 case 'imageflow__end' :
+                
                     if (sizeOf($sectionID) > 0) array_pop($sectionID);
                     if ($mode == 'xhtml') $renderer->doc .= <<<OUTPUT
 			</div>
