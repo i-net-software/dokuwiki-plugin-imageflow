@@ -107,11 +107,12 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
         list($instr, $data) = $input;
 
         if( $mode == 'xhtml' || $mode == 'metadata' ) {
+        
             switch ( $instr ) {
                 	
                 case 'imageflow__start' :
                     	
-                    $this->sectionID[] = sectionID("imageflow_container_", $this->header);
+                    $this->sectionID[] = sectionID("imageflow_container_", $this->header[$mode]);
                     $scID = $this->sectionID[sizeof($this->sectionID)-1];
                     	
                     if ($mode == 'xhtml') $renderer->doc .= <<<OUTPUT
@@ -134,7 +135,7 @@ OUTPUT;
 
                         if ( empty($width)) $width = 300;
                         $imgData['params'] = array('w' => intval($width));
-                        $imgData['id'] = sectionID(noNS($item['id']), $this->header);
+                        $imgData['id'] = sectionID(noNS($item['id']), $this->header[$mode]);
                         $imgData['isImage'] = true;
 
                         $this->_image($imgData, $renderer, $mode);
