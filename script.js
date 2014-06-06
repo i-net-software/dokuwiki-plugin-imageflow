@@ -674,7 +674,7 @@
 		this.checkForPopUp = function() {
 			if ( document.location.href.indexOf('#') < 0 ) { return; }
 			var extend = document.location.href.substr(document.location.href.indexOf('#'));
-			if ( typeof extend == "undefined" || !$(extend) ) { return; }
+			if ( typeof extend == "undefined" || !this.root.find(extend).size() > 0 ) { return; }
 	
 			var e = {};
 			e.target = $(extend);
