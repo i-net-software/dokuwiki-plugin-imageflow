@@ -18,7 +18,7 @@ class action_plugin_imageflow extends DokuWiki_Action_Plugin {
 	var $functions = null;
 	var $POSTcheck = 'show_sample';
 
-	function register(&$controller) {
+	function register(Doku_Event_Handler $controller) {
 
 		// Support given via AJAX
 		$controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'toolbar_add_button', array ());
