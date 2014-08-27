@@ -266,7 +266,7 @@
 				this.id = this.imgData.id;
 	
 				this.image.bind('load', __self.finish);
-			}
+			};
 		};	
 		
 		this.loadingStatus = function() {
@@ -452,7 +452,7 @@
 			if ( whereToMove < _self.current - 1/devident || whereToMove > _self.current + 1/devident ) 
 			{
 				_self.moveTo(_self.current + (whereToMove-_self.current)/3, whereToMove); // move in three steps
-				_self.timeOutAction = setTimeout(function(){ _self.glideTo(whereToMove) }, 50);
+				_self.timeOutAction = setTimeout(function(){ _self.glideTo(whereToMove); }, 50);
 				return;
 			}
 			
@@ -674,7 +674,7 @@
 		this.checkForPopUp = function() {
 			if ( document.location.href.indexOf('#') < 0 ) { return; }
 			var extend = document.location.href.substr(document.location.href.indexOf('#'));
-			if ( typeof extend == "undefined" || !this.root.find(extend).size() > 0 ) { return; }
+			if ( typeof extend == "undefined" || this.root.find(extend).size() <= 0 ) { return; }
 	
 			var e = {};
 			e.target = $(extend);
@@ -712,12 +712,12 @@
 	
 	$(function(){
 		function img(url) {
-			var i = new Image;
+			var i = new Image();
 			i.src = url;
 			return i;
 		}
 	 
-		if ('naturalWidth' in (new Image)) {
+		if ('naturalWidth' in (new Image())) {
 			$.fn.naturalWidth  = function() { return this[0].naturalWidth; };
 			$.fn.naturalHeight = function() { return this[0].naturalHeight; };
 			return;

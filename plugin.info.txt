@@ -3,7 +3,7 @@
 base   imageflow
 author i-net software
 email  tools@inetsoftware.de
-date   2014-07-15
+date   2014-08-27
 name   ImageFlow Plugin Mark 2
 desc   Creates a floating content
 url    http://www.inetsoftware.de/other-products/dokuwiki-plugins/imageflow
