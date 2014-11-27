@@ -712,7 +712,7 @@
 	
 	$(function(){
 	
-	    if ( typeof $.fn.naturalWidth == 'undefined' && typeof $.fn.naturalHeight == 'undefined' ) { return; }
+	    if ( typeof $.fn.naturalWidth != 'undefined' && typeof $.fn.naturalHeight != 'undefined' ) { return; }
 	
 		function img(url) { var i = new Image(); i.src = url; return i; }
 		if ('naturalWidth' in (new Image())) {
