@@ -641,6 +641,12 @@
 			if ( (whereToMove = _self.getClickImage(e)) === false ) { return; }
 			
 			var whereToImage = _self.checkedImages[whereToMove];
+			
+			// Reset SRC if this is not an image, because we want the default source than.
+			if ( whereToImage.popupData && !whereToImage.popupData.isImage ) {
+    			whereToImage.popupData.src = null;
+			}			
+			
 			jQuery.popupviewer().init(_self.checkedImages).presentViewerWithContent.call(whereToImage);
 		};
 		

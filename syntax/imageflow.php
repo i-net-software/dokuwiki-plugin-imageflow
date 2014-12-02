@@ -86,7 +86,7 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
                 if ( empty( $params['linkto'] ) ) {
                     $data['isImage'] = true;
                 } else {
-                    $data['linkto'] = wl(cleanID($params['linkto']));
+                    $data['linkto'] = cleanID($params['linkto']);
                     unset($params['linkto']);
                 }
 
@@ -231,7 +231,7 @@ OUTPUT;
             // Add Metadata
             unset($data['alternate_desc']);
             if ( !$data['isImage'] && !empty( $data['linkto'] ) ) {
-                $data['src'] = $data['linkto'];
+                $data['id'] = $data['linkto'];
                 unset( $data['linkto'] );
             }
 
