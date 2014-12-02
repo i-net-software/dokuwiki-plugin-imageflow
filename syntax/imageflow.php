@@ -81,12 +81,16 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
                     $params[$key] = $value;
                 }
 
-                if ( !empty( $params['linkto'] ) ) {
-                    $linkto = wl(cleanID($params['linkto']));
+                $data = array('src' => trim($src), 'params' => $params, 'desc' => trim($desc), 'w' => 200, 'title' => trim($title));
+
+                if ( empty( $params['linkto'] ) ) {
+                    $data['isImage'] = true;
+                } else {
+                    $data['linkto'] = wl(cleanID($params['linkto']));
                     unset($params['linkto']);
                 }
 
-                return array('image', array('src' => trim($src), 'params' => $params, 'desc' => trim($desc), 'w' => 200, 'title' => trim($title), 'linkto' => $linkto, 'isIamge' => true));
+                return array('image', $data);
                 break;
             case DOKU_LEXER_UNMATCHED:
                 break;
@@ -226,6 +230,11 @@ OUTPUT;
         } else {
             // Add Metadata
             unset($data['alternate_desc']);
+            if ( !$data['isImage'] && !empty( $data['linkto'] ) ) {
+                $data['src'] = $data['linkto'];
+                unset( $data['linkto'] );
+            }
+
             $renderer->meta['relation']['imageflow'][$this->sectionID[sizeof($this->sectionID)-1]][] = $data;
         }
 
