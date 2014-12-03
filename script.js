@@ -245,9 +245,12 @@
 				this.popupData = imgData.popupData || {};
 				this.popupData.id = this.popupData.id || this.imgData.id;
 				this.popupData.call = this.popupData.call || this.imgData.call;
-				this.popupData.src = this.popupData.src || this.imgData.src;
 				this.popupData.isImage = this.popupData.isImage || this.imgData.isImage || false;
-				
+
+    			// Reset SRC if this is not an image, because we want the default source then.
+				this.popupData.src = this.popupData.isImage ? this.popupData.src || this.imgData.src : null;
+				this.popupData.hasNextPrevious = true; // Allways display the next and previous handles.
+    			
 				this.image = $(new Image());
 				var src = this.imgData.src;
 				if ( imgData.params ) {
@@ -641,12 +644,6 @@
 			if ( (whereToMove = _self.getClickImage(e)) === false ) { return; }
 			
 			var whereToImage = _self.checkedImages[whereToMove];
-			
-			// Reset SRC if this is not an image, because we want the default source than.
-			if ( whereToImage.popupData && !whereToImage.popupData.isImage ) {
-    			whereToImage.popupData.src = null;
-			}			
-			
 			jQuery.popupviewer().init(_self.checkedImages).presentViewerWithContent.call(whereToImage);
 		};
 		
