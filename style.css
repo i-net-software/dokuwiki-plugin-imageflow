@@ -10,7 +10,7 @@ div.imageflow_wrapper div.noscript, div.imageflow_wrapper div.noscript img {
 }
 
 div.imageflow_wrapper.scripting_active {
-	background: __darker__;
+	background: @ini_background_alt;
 	border: 1px solid #000;
 	position: relative !important;
 }
@@ -136,7 +136,7 @@ div.imageflow_caption {
 div.imageflow_caption h3 {
 	font-weight:bold;
 	margin: 0px !important;
-	border-bottom: 1px solid __border__;
+	border-bottom: 1px solid @ini_border;
 	width: 100%;
 }
 
