@@ -16,13 +16,13 @@ require_once(DOKU_INC.'inc/JpegMeta.php');
 
 class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
 
-    var $glideToImage = 0;
-    var $saveimages = '';
-    var $imagedoc = '';
-    var $namespace = null;
-    var $reflection_conf = false;
-    var $sectionID = array();
-    var $header = array();
+    private $glideToImage = 0;
+    private $saveimages = '';
+    private $imagedoc = '';
+    private $namespace = null;
+    private $reflection_conf = false;
+    private $sectionID = array();
+    private $header = array();
 
     function getType(){ return 'protected';}
     function getAllowedTypes() { return array('container','substition','protected','disabled','formatting','paragraphs'); }
@@ -32,7 +32,6 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
      * Where to sort in?
      */
     function getSort(){ return 301; }
-
 
     /**
      * Connect pattern to lexer
@@ -51,7 +50,7 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
     /**
      * Handle the match
      */
-    function handle($match, $state, $pos, &$handler){
+    function handle($match, $state, $pos, Doku_Handler $handler){
 
         switch ($state) {
             case DOKU_LEXER_ENTER:
@@ -105,28 +104,28 @@ class syntax_plugin_imageflow_imageflow extends DokuWiki_Syntax_Plugin {
     /**
      * Create output
      */
-    function render($mode, &$renderer, $input) {
+    function render($mode, Doku_Renderer $renderer, $input) {
         global $conf;
 
         list($instr, $data) = $input;
 
         if( $mode == 'xhtml' || $mode == 'metadata' ) {
-        
+
             if ( !is_array($this->header[$mode]) ) {
                 $this->header[$mode] = array();
             }
-        
+
             switch ( $instr ) {
-                	
+
                 case 'imageflow__start' :
-                    	
+
                     $this->sectionID[] = sectionID("imageflow_container_", $this->header[$mode]);
                     $scID = $this->sectionID[sizeof($this->sectionID)-1];
-                    	
+
                     if ($mode == 'xhtml') $renderer->doc .= <<<OUTPUT
-	<div class="imageflow_wrapper" id="$scID">
-		<noscript>
-			<div class="hasscript">
+    <div class="imageflow_wrapper" id="$scID">
+        <noscript>
+            <div class="hasscript">
 OUTPUT;
                     if ( $data === null) { break; }
 
@@ -155,12 +154,12 @@ OUTPUT;
                     $this->_image($data, $renderer, $mode);
                     break;
                 case 'imageflow__end' :
-                
+
                     if (sizeOf($sectionID) > 0) array_pop($sectionID);
                     if ($mode == 'xhtml') $renderer->doc .= <<<OUTPUT
-			</div>
-		</noscript>
-	</div>
+            </div>
+        </noscript>
+    </div>
 OUTPUT;
                     break;
             }
@@ -209,7 +208,7 @@ OUTPUT;
         }
 
         if ($mode != 'metadata') {
-            	
+
             if ( !empty($data['alternate_desc']) ) {
                 $renderer->doc .= $data['alternate_desc'];
             } else {
