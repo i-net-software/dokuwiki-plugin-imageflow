@@ -29,7 +29,7 @@ class action_plugin_imageflow extends DokuWiki_Action_Plugin {
     /**
      * Inserts a toolbar button
      */
-    function toolbar_add_button(& $event, $param) {
+    function toolbar_add_button( Doku_Event &$event, $param) {
         $event->data[] = array (
             'type' => 'format',
             'title' => $this->getLang('toolbar_picker'),
@@ -40,14 +40,14 @@ class action_plugin_imageflow extends DokuWiki_Action_Plugin {
         );
     }
 
-    function metaheader_add_images( &$event, $param ) {
+    function metaheader_add_images( Doku_Event &$event, $param ) {
         global $ID, $JSINFO;
 
         $metaData = p_get_metadata($ID, "relation imageflow", true);
         $JSINFO['relation']['imageflow'] = $metaData;
     }
 
-    function popupviewer_metaheader_add_images( &$event, $param ) {
+    function popupviewer_metaheader_add_images( Doku_Event &$event, $param ) {
         global $ID, $JSINFO;
 
         $this->metaheader_add_images( $event, $param );
