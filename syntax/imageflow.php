@@ -155,12 +155,16 @@ OUTPUT;
                     break;
                 case 'imageflow__end' :
 
-                    if (sizeOf($sectionID) > 0) array_pop($sectionID);
-                    if ($mode == 'xhtml') $renderer->doc .= <<<OUTPUT
+                    if (is_array($sectionID) && sizeOf($sectionID) > 0) {
+                        array_pop($sectionID);
+                    }
+                    if ($mode == 'xhtml') {
+                        $renderer->doc .= <<<OUTPUT
             </div>
         </noscript>
     </div>
 OUTPUT;
+                    }
                     break;
             }
             return true;
